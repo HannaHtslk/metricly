@@ -67,7 +67,7 @@ const AgeDistributionChart = () => {
       sx={{
         p: 2.5,
         border: '1px solid',
-        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.7)',
+        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
         borderRadius: 3,
         background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.55)',
         backdropFilter: 'blur(12px)',

@@ -56,11 +56,21 @@ const DepartmentHeadcountChart = () => {
 
   // Dynamic height so every bar gets ~34px
   const chartHeight = Math.max(260, chartData.length * 34);
+  const isDark = theme.palette.mode === 'dark';
 
   return (
     <Paper
       elevation={0}
-      sx={{ p: 2.5, border: '1px solid', borderColor: 'divider', borderRadius: 3 }}
+      sx={{
+        p: 2.5,
+        border: '1px solid',
+        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
+        borderRadius: 3,
+        background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.55)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        cursor: 'default',
+      }}
     >
       <Typography variant="subtitle1" fontWeight={700}>
         Department Headcount

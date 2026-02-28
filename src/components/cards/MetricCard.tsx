@@ -27,7 +27,7 @@ const MetricCard = ({ title, value, subtitle, icon, accentGradient, trend }: Met
       sx={{
         p: 2.5,
         border: '1px solid',
-        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.7)',
+        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
         borderRadius: 3,
         position: 'relative',
         overflow: 'hidden',
