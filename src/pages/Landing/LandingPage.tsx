@@ -77,6 +77,7 @@ const LandingPage = () => {
           flex: '0 0 50%',
           px: 8,
           py: 6,
+          cursor: 'default',
           background: 'linear-gradient(145deg, #18181b 55%, #1e1b4b 100%)',
           position: 'relative',
           overflow: 'hidden',
@@ -141,6 +142,12 @@ const LandingPage = () => {
                 bgcolor: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.07)',
                 backdropFilter: 'blur(4px)',
+                cursor: 'default',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                '&:hover': {
+                  transform: 'scale(1.025)',
+                  boxShadow: '0 0 0 1px rgba(255,255,255,0.12), 0 0 20px rgba(255,255,255,0.1)',
+                },
               }}
             >
               <Box
@@ -196,6 +203,7 @@ const LandingPage = () => {
             borderRadius: 4,
             border: '1px solid',
             borderColor: 'divider',
+            cursor: 'default',
           }}
         >
           {/* Mobile-only logo */}
