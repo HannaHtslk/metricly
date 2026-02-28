@@ -1,19 +1,19 @@
-import { createTheme } from '@mui/material';
-import type { PaletteMode } from '@mui/material';
+import type { PaletteMode } from "@mui/material";
+import { createTheme } from "@mui/material";
 
 export const getTheme = (mode: PaletteMode) =>
   createTheme({
     palette: {
       mode,
       primary: {
-        main: '#6366f1',
+        main: "#6366f1",
       },
       secondary: {
-        main: '#22d3ee',
+        main: "#22d3ee",
       },
       background: {
-        default: mode === 'light' ? '#f1f5f9' : '#0a0f1e',
-        paper: mode === 'light' ? '#ffffff' : '#1e293b',
+        default: mode === "light" ? "#f1f1f85c" : "#0a0f1e",
+        paper: mode === "light" ? "#ffffff" : "#1e293b",
       },
     },
     typography: {
@@ -32,12 +32,12 @@ export const getTheme = (mode: PaletteMode) =>
       MuiDrawer: {
         styleOverrides: {
           paper: {
-            backgroundColor: mode === 'light' ? '#ffffff' : '#09090b',
-            borderRight: mode === 'light' ? '1px solid rgba(0,0,0,0.08)' : 'none',
-            boxShadow:
-              mode === 'light'
-                ? 'none'
-                : '4px 0 24px rgba(0,0,0,0.4)',
+            backgroundColor: mode === "light" ? "#ffffff" : "#070b16",
+            borderRight:
+              mode === "light"
+                ? "1px solid rgba(0,0,0,0.08)"
+                : "1px solid rgba(255,255,255,0.05)",
+            boxShadow: "none",
           },
         },
       },
@@ -45,7 +45,7 @@ export const getTheme = (mode: PaletteMode) =>
         styleOverrides: {
           root: {
             borderRadius: 8,
-            margin: '2px 8px',
+            margin: "2px 8px",
           },
         },
       },
