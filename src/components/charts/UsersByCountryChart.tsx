@@ -41,6 +41,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 
 const UsersByCountryChart = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const { data } = useGetUsersQuery();
 
   const chartData = useMemo(() => {
@@ -48,12 +49,12 @@ const UsersByCountryChart = () => {
 
     const counts: Record<string, number> = {};
     data.users.forEach((u) => {
-      const c = u.address.country;
+      const c = u.address.state;
       counts[c] = (counts[c] ?? 0) + 1;
     });
 
     return Object.entries(counts)
-      .map(([country, count]) => ({ country, count }))
+      .map(([state, count]) => ({ state, count }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 8);
   }, [data]);
@@ -61,13 +62,22 @@ const UsersByCountryChart = () => {
   return (
     <Paper
       elevation={0}
-      sx={{ p: 2.5, border: '1px solid', borderColor: 'divider', borderRadius: 3 }}
+      sx={{
+        p: 2.5,
+        border: '1px solid',
+        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.7)',
+        borderRadius: 3,
+        background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.55)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        cursor: 'default',
+      }}
     >
       <Typography variant="subtitle1" fontWeight={700}>
-        Users by Country
+        Users by State
       </Typography>
       <Typography variant="caption" color="text.secondary" display="block" mb={3}>
-        Top 8 countries by user count
+        Top 8 US states by user count
       </Typography>
 
       {chartData.length === 0 ? (
@@ -81,6 +91,7 @@ const UsersByCountryChart = () => {
             data={chartData}
             margin={{ top: 0, right: 16, left: 8, bottom: 0 }}
             barSize={18}
+            style={{ cursor: 'default' }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
@@ -96,8 +107,8 @@ const UsersByCountryChart = () => {
             />
             <YAxis
               type="category"
-              dataKey="country"
-              width={90}
+              dataKey="state"
+              width={100}
               tick={{ fontSize: 11, fill: theme.palette.text.secondary }}
               axisLine={false}
               tickLine={false}

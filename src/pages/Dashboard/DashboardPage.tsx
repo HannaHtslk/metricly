@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import WcRoundedIcon from '@mui/icons-material/WcRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import { useGetUsersQuery } from '../../api/usersApi';
-import PageHeader from '../../components/ui/PageHeader';
+import { useAuth } from '../../hooks/useAuth';
 import MetricCard from '../../components/cards/MetricCard';
 import MetricCardSkeleton from '../../components/ui/MetricCardSkeleton';
 import ChartSkeleton from '../../components/ui/ChartSkeleton';
@@ -38,8 +38,17 @@ const CHART_ROW_SX = {
   gap: 2.5,
 };
 
+const getGreeting = () => {
+  const h = new Date().getHours();
+  if (h < 12) return 'Good morning';
+  if (h < 17) return 'Good afternoon';
+  return 'Good evening';
+};
+
 const DashboardPage = () => {
+  const { user } = useAuth();
   const { data, isLoading } = useGetUsersQuery();
+  const firstName = user?.displayName?.split(' ')[0] ?? 'there';
 
   const metrics = useMemo(() => {
     if (!data) return null;
@@ -70,10 +79,14 @@ const DashboardPage = () => {
 
   return (
     <>
-      <PageHeader
-        title="Dashboard"
-        subtitle="Business overview · last updated just now"
-      />
+      <Box sx={{ mb: 3, cursor: 'default' }}>
+        <Typography variant="h4" fontWeight={700}>
+          {getGreeting()}, {firstName}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+          {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        </Typography>
+      </Box>
 
       {/* ── KPI Cards ── */}
       <Box sx={CARD_GRID_SX}>

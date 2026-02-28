@@ -92,6 +92,7 @@ const AgeByGenderChart = () => {
             margin={{ top: 4, right: 16, left: -16, bottom: 0 }}
             barSize={22}
             barGap={4}
+            style={{ cursor: 'default' }}
           >
             <CartesianGrid
               strokeDasharray="3 3"

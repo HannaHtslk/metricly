@@ -50,6 +50,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 
 const AgeDistributionChart = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const { data } = useGetUsersQuery();
 
   const chartData = useMemo(() => {
@@ -63,7 +64,16 @@ const AgeDistributionChart = () => {
   return (
     <Paper
       elevation={0}
-      sx={{ p: 2.5, border: '1px solid', borderColor: 'divider', borderRadius: 3 }}
+      sx={{
+        p: 2.5,
+        border: '1px solid',
+        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.7)',
+        borderRadius: 3,
+        background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.55)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        cursor: 'default',
+      }}
     >
       <Typography variant="subtitle1" fontWeight={700}>
         Age Distribution
@@ -78,7 +88,7 @@ const AgeDistributionChart = () => {
         </Box>
       ) : (
         <ResponsiveContainer debounce={300} width="100%" height={240}>
-          <BarChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }} barSize={28}>
+          <BarChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }} barSize={28} style={{ cursor: 'default' }}>
             <CartesianGrid
               strokeDasharray="3 3"
               stroke={theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}

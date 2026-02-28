@@ -80,6 +80,7 @@ const DepartmentHeadcountChart = () => {
             data={chartData}
             margin={{ top: 0, right: 24, left: 8, bottom: 0 }}
             barSize={20}
+            style={{ cursor: 'default' }}
           >
             <CartesianGrid
               strokeDasharray="3 3"

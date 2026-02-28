@@ -56,7 +56,16 @@ const UserGrowthChart = () => {
   return (
     <Paper
       elevation={0}
-      sx={{ p: 2.5, border: '1px solid', borderColor: 'divider', borderRadius: 3 }}
+      sx={{
+        p: 2.5,
+        border: '1px solid',
+        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.7)',
+        borderRadius: 3,
+        background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.55)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        cursor: 'default',
+      }}
     >
       <Typography variant="subtitle1" fontWeight={700}>
         User Growth
@@ -66,7 +75,7 @@ const UserGrowthChart = () => {
       </Typography>
 
       <ResponsiveContainer debounce={300} width="100%" height={260}>
-        <AreaChart data={MONTHLY_DATA} margin={{ top: 4, right: 8, left: -16, bottom: 0 }}>
+        <AreaChart data={MONTHLY_DATA} margin={{ top: 4, right: 8, left: -16, bottom: 0 }} style={{ cursor: 'default' }}>
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%"  stopColor="#6366f1" stopOpacity={isDark ? 0.4 : 0.25} />

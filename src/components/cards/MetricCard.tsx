@@ -1,4 +1,4 @@
-import { Box, Chip, Paper, Typography } from '@mui/material';
+import { Box, Chip, Paper, Typography, useTheme } from '@mui/material';
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
 import type { ReactNode } from 'react';
@@ -17,6 +17,8 @@ export interface MetricCardProps {
 }
 
 const MetricCard = ({ title, value, subtitle, icon, accentGradient, trend }: MetricCardProps) => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const isPositive = trend.value >= 0;
 
   return (
@@ -25,13 +27,27 @@ const MetricCard = ({ title, value, subtitle, icon, accentGradient, trend }: Met
       sx={{
         p: 2.5,
         border: '1px solid',
-        borderColor: 'divider',
+        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.7)',
         borderRadius: 3,
         position: 'relative',
         overflow: 'hidden',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        cursor: 'default',
+        background: isDark
+          ? 'rgba(255,255,255,0.04)'
+          : 'rgba(255,255,255,0.55)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+        '&:hover': {
+          transform: 'scale(1.025)',
+          boxShadow: isDark
+            ? '0 0 0 1px rgba(255,255,255,0.12), 0 0 20px rgba(255,255,255,0.1)'
+            : '0 0 0 1px rgba(99,102,241,0.25), 0 0 20px rgba(99,102,241,0.18)',
+          zIndex: 1,
+        },
         // Colored top-accent bar
         '&::before': {
           content: '""',
@@ -101,7 +117,7 @@ const MetricCard = ({ title, value, subtitle, icon, accentGradient, trend }: Met
           mt: 'auto',
           pt: 2,
           borderTop: '1px solid',
-          borderColor: 'divider',
+          borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
           display: 'flex',
           alignItems: 'center',
           gap: 1,

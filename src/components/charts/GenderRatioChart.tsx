@@ -60,7 +60,7 @@ const GenderRatioChart = () => {
       </Typography>
 
       <ResponsiveContainer debounce={300} width="100%" height={280}>
-        <PieChart>
+        <PieChart style={{ cursor: 'default' }}>
           <Pie
             data={chartData}
             cx="50%"
