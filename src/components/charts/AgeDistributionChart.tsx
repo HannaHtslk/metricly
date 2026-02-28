@@ -77,7 +77,7 @@ const AgeDistributionChart = () => {
           <Typography color="text.secondary" variant="body2">No data</Typography>
         </Box>
       ) : (
-        <ResponsiveContainer width="100%" height={240}>
+        <ResponsiveContainer debounce={300} width="100%" height={240}>
           <BarChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }} barSize={28}>
             <CartesianGrid
               strokeDasharray="3 3"

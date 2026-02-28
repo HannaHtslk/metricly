@@ -74,7 +74,7 @@ const DepartmentHeadcountChart = () => {
           <Typography color="text.secondary" variant="body2">No data</Typography>
         </Box>
       ) : (
-        <ResponsiveContainer width="100%" height={chartHeight}>
+        <ResponsiveContainer debounce={300} width="100%" height={chartHeight}>
           <BarChart
             layout="vertical"
             data={chartData}

@@ -75,7 +75,7 @@ const UsersByCountryChart = () => {
           <Typography color="text.secondary" variant="body2">No data</Typography>
         </Box>
       ) : (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer debounce={300} width="100%" height={300}>
           <BarChart
             layout="vertical"
             data={chartData}

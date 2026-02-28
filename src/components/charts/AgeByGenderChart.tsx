@@ -86,7 +86,7 @@ const AgeByGenderChart = () => {
           <Typography color="text.secondary" variant="body2">No data</Typography>
         </Box>
       ) : (
-        <ResponsiveContainer width="100%" height={260}>
+        <ResponsiveContainer debounce={300} width="100%" height={260}>
           <BarChart
             data={chartData}
             margin={{ top: 4, right: 16, left: -16, bottom: 0 }}

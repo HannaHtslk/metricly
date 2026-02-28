@@ -18,6 +18,12 @@ export const getTheme = (mode: PaletteMode) =>
     },
     typography: {
       fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+      h1: { fontFamily: '"Varela Round", sans-serif' },
+      h2: { fontFamily: '"Varela Round", sans-serif' },
+      h3: { fontFamily: '"Varela Round", sans-serif' },
+      h4: { fontFamily: '"Varela Round", sans-serif' },
+      h5: { fontFamily: '"Varela Round", sans-serif' },
+      h6: { fontFamily: '"Varela Round", sans-serif' },
     },
     shape: {
       borderRadius: 12,
@@ -26,11 +32,11 @@ export const getTheme = (mode: PaletteMode) =>
       MuiDrawer: {
         styleOverrides: {
           paper: {
-            backgroundColor: mode === 'light' ? '#18181b' : '#09090b',
-            borderRight: 'none',
+            backgroundColor: mode === 'light' ? '#ffffff' : '#09090b',
+            borderRight: mode === 'light' ? '1px solid rgba(0,0,0,0.08)' : 'none',
             boxShadow:
               mode === 'light'
-                ? '4px 0 24px rgba(0,0,0,0.15)'
+                ? 'none'
                 : '4px 0 24px rgba(0,0,0,0.4)',
           },
         },

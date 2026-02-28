@@ -80,7 +80,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
             variant="h6"
             fontWeight={800}
             sx={{
-              color: 'common.white',
+              color: 'primary.main',
               letterSpacing: '-0.5px',
             }}
           >
@@ -91,7 +91,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
           <Tooltip title={open ? 'Collapse' : 'Expand'} placement="right">
             <IconButton
               onClick={onToggle}
-              sx={{ color: 'rgba(255,255,255,0.6)', '&:hover': { color: 'common.white' } }}
+              sx={{ color: 'text.secondary', '&:hover': { color: 'text.primary' } }}
             >
               {open ? <ChevronLeftRoundedIcon /> : <ChevronRightRoundedIcon />}
             </IconButton>
@@ -99,7 +99,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
         )}
       </Box>
 
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
+      <Divider />
 
       {/* Nav links */}
       <List sx={{ flexGrow: 1, pt: 1 }}>
@@ -126,14 +126,14 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
                       ml: '3px',
                     }),
                     '&:hover': {
-                      bgcolor: 'rgba(255,255,255,0.07)',
+                      bgcolor: 'action.hover',
                     },
                   }}
                 >
                   <ListItemIcon
                     sx={{
                       minWidth: open || isMobile ? 36 : 'auto',
-                      color: isActive ? theme.palette.primary.main : 'rgba(255,255,255,0.6)',
+                      color: isActive ? 'primary.main' : 'text.secondary',
                     }}
                   >
                     {icon}
@@ -144,7 +144,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
                       primaryTypographyProps={{
                         fontSize: '0.875rem',
                         fontWeight: isActive ? 600 : 400,
-                        color: isActive ? theme.palette.primary.main : 'rgba(255,255,255,0.85)',
+                        color: isActive ? 'primary.main' : 'text.primary',
                       }}
                     />
                   )}
@@ -155,7 +155,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
         ))}
       </List>
 
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
+      <Divider />
 
       {/* Bottom: theme toggle */}
       <Box sx={{ px: open || isMobile ? 1 : 0, py: 0.5 }}>
@@ -167,13 +167,13 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
               px: open || isMobile ? 2 : 1,
               py: 1.5,
               borderRadius: 2,
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.07)' },
+              '&:hover': { bgcolor: 'action.hover' },
             }}
           >
             <ListItemIcon
               sx={{
                 minWidth: open || isMobile ? 36 : 'auto',
-                color: 'rgba(255,255,255,0.6)',
+                color: 'text.secondary',
               }}
             >
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -183,7 +183,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
                 primary={theme.palette.mode === 'dark' ? 'Light mode' : 'Dark mode'}
                 primaryTypographyProps={{
                   fontSize: '0.875rem',
-                  color: 'rgba(255,255,255,0.85)',
+                  color: 'text.primary',
                 }}
               />
             )}
@@ -191,7 +191,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
         </Tooltip>
       </Box>
 
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
+      <Divider />
 
       {/* Bottom: user info + logout */}
       <Box
@@ -215,7 +215,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
             <Typography
               variant="body2"
               sx={{
-                color: 'rgba(255,255,255,0.85)',
+                color: 'text.primary',
                 fontWeight: 500,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -230,7 +230,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
         <Tooltip title="Sign out" placement={open || isMobile ? 'top' : 'right'}>
           <IconButton
             onClick={handleSignOut}
-            sx={{ color: 'rgba(255,255,255,0.6)', flexShrink: 0, '&:hover': { color: 'common.white' } }}
+            sx={{ color: 'text.secondary', flexShrink: 0, '&:hover': { color: 'text.primary' } }}
           >
             <LogoutRoundedIcon fontSize="small" />
           </IconButton>
@@ -248,6 +248,12 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
           display: { xs: 'none', md: 'block' },
           width: open ? DRAWER_WIDTH : MINI_WIDTH,
           flexShrink: 0,
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: open
+              ? theme.transitions.duration.enteringScreen
+              : theme.transitions.duration.leavingScreen,
+          }),
           '& .MuiDrawer-paper': {
             width: open ? DRAWER_WIDTH : MINI_WIDTH,
             transition: theme.transitions.create('width', {

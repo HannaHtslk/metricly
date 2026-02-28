@@ -75,7 +75,7 @@ const CountryDistributionChart = () => {
         Top {TOP_N} US states · others grouped
       </Typography>
 
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer debounce={300} width="100%" height={280}>
         <PieChart>
           <Pie
             data={chartData}
