@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import { ThemeProvider, CssBaseline, Box, CircularProgress, Typography } from '@mui/material';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { getTheme } from './theme/theme';
 import { auth } from './firebase/firebase';
 import { setUser } from './store/authSlice';
+import { useAuth } from './hooks/useAuth';
 import LandingPage from './pages/Landing/LandingPage';
 import DashboardPage from './pages/Dashboard/DashboardPage';
 import UsersPage from './pages/Users/UsersPage';
@@ -38,6 +39,32 @@ function AuthListener() {
   return null;
 }
 
+function AuthGate({ children }: { children: React.ReactNode }) {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          gap: 2,
+        }}
+      >
+        <Typography variant="h6" fontWeight={800} color="primary">
+          Metricly
+        </Typography>
+        <CircularProgress size={28} thickness={4} />
+      </Box>
+    );
+  }
+
+  return <>{children}</>;
+}
+
 function AppRoutes({ onToggleTheme }: { onToggleTheme: () => void }) {
 
   return (
@@ -63,7 +90,9 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <AuthListener />
-        <AppRoutes onToggleTheme={toggleTheme} />
+        <AuthGate>
+          <AppRoutes onToggleTheme={toggleTheme} />
+        </AuthGate>
       </BrowserRouter>
     </ThemeProvider>
   );
