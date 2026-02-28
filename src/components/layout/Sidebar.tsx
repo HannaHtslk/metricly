@@ -52,7 +52,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/login');
+    navigate('/');
   };
 
   const drawerContent = (isMobile: boolean) => (
