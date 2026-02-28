@@ -35,7 +35,7 @@ const FEATURES = [
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const { user, loading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -55,7 +55,7 @@ const LandingPage = () => {
     }
   };
 
-  if (!loading && user) {
+  if (!authLoading && user) {
     return <Navigate to="/dashboard" replace />;
   }
 
