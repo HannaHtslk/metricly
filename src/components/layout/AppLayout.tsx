@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { AppBar, Box, IconButton, Toolbar, Typography, useTheme } from '@mui/material';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import Sidebar, { DRAWER_WIDTH, MINI_WIDTH } from './Sidebar';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Sidebar from './Sidebar';
 
 interface AppLayoutProps {
   onToggleTheme: () => void;
@@ -27,21 +29,16 @@ const AppLayout = ({ onToggleTheme }: AppLayoutProps) => {
         component="main"
         sx={{
           flexGrow: 1,
-          ml: { md: `${open ? DRAWER_WIDTH : MINI_WIDTH}px` },
-          transition: theme.transitions.create('margin-left', {
-            easing: theme.transitions.easing.sharp,
-            duration: open
-              ? theme.transitions.duration.enteringScreen
-              : theme.transitions.duration.leavingScreen,
-          }),
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
+          minWidth: 0,
         }}
       >
         {/* Mobile top bar */}
         <AppBar
           position="sticky"
+          color="default"
           elevation={0}
           sx={{
             display: { md: 'none' },
@@ -54,19 +51,24 @@ const AppLayout = ({ onToggleTheme }: AppLayoutProps) => {
             <IconButton
               edge="start"
               color="inherit"
+              aria-label="Open navigation menu"
               onClick={() => setMobileOpen(true)}
               sx={{ mr: 1 }}
             >
               <MenuRoundedIcon />
             </IconButton>
-            <Typography variant="h6" fontWeight={700}>
+            <Typography variant="h6" fontWeight={700} sx={{ flexGrow: 1 }}>
               Metricly
             </Typography>
+            {/* Theme toggle visible on mobile — sidebar toggle is hidden at xs/sm */}
+            <IconButton color="inherit" onClick={onToggleTheme} aria-label="Toggle colour theme">
+              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
           </Toolbar>
         </AppBar>
 
         {/* Page content */}
-        <Box sx={{ flexGrow: 1, p: 3 }}>
+        <Box sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
           <Outlet />
         </Box>
       </Box>

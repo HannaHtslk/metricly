@@ -91,7 +91,6 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
           <Tooltip title={open ? 'Collapse' : 'Expand'} placement="right">
             <IconButton
               onClick={onToggle}
-              size="small"
               sx={{ color: 'rgba(255,255,255,0.6)', '&:hover': { color: 'common.white' } }}
             >
               {open ? <ChevronLeftRoundedIcon /> : <ChevronRightRoundedIcon />}
@@ -116,7 +115,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
                   sx={{
                     justifyContent: open || isMobile ? 'flex-start' : 'center',
                     px: open || isMobile ? 2 : 1,
-                    py: 1,
+                    py: 1.5,
                     ...(isActive && {
                       bgcolor: alpha(theme.palette.primary.main, 0.15),
                       borderLeft: `3px solid ${theme.palette.primary.main}`,
@@ -166,7 +165,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
             sx={{
               justifyContent: open || isMobile ? 'flex-start' : 'center',
               px: open || isMobile ? 2 : 1,
-              py: 1,
+              py: 1.5,
               borderRadius: 2,
               '&:hover': { bgcolor: 'rgba(255,255,255,0.07)' },
             }}
@@ -231,7 +230,6 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
         <Tooltip title="Sign out" placement={open || isMobile ? 'top' : 'right'}>
           <IconButton
             onClick={handleSignOut}
-            size="small"
             sx={{ color: 'rgba(255,255,255,0.6)', flexShrink: 0, '&:hover': { color: 'common.white' } }}
           >
             <LogoutRoundedIcon fontSize="small" />

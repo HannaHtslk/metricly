@@ -183,7 +183,7 @@ const LandingPage = () => {
           alignItems: 'center',
           justifyContent: 'center',
           px: { xs: 2, sm: 4 },
-          py: 6,
+          py: { xs: 3, sm: 6 },
           bgcolor: 'background.default',
         }}
       >
@@ -225,7 +225,7 @@ const LandingPage = () => {
             variant="outlined"
             onClick={handleGoogleLogin}
             disabled={loading}
-            sx={{ py: 1.2, mb: 3 }}
+            sx={{ py: 1.5, mb: 3 }}
           >
             Continue with Google
           </Button>
@@ -264,7 +264,7 @@ const LandingPage = () => {
               variant="contained"
               fullWidth
               disabled={loading}
-              sx={{ py: 1.2, mt: 0.5 }}
+              sx={{ py: 1.5, mt: 0.5 }}
             >
               Sign In
             </Button>
