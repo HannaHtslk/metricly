@@ -8,6 +8,7 @@ export interface User {
   age: number;
   gender: string;
   address: {
+    state: string;
     country: string;
   };
   company: {
