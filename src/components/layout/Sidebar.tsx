@@ -79,9 +79,11 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
           <Typography
             variant="h6"
             fontWeight={800}
+            onClick={() => navigate('/dashboard')}
             sx={{
               color: 'primary.main',
               letterSpacing: '-0.5px',
+              cursor: 'pointer',
             }}
           >
             Metricly
@@ -204,7 +206,7 @@ const Sidebar = ({ open, mobileOpen, onToggle, onMobileClose, onToggleTheme }: S
           gap: 1,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, cursor: 'default' }}>
           <Avatar
             src={user?.photoURL ?? undefined}
             sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: '0.875rem', flexShrink: 0 }}

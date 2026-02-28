@@ -17,6 +17,7 @@ const PageHeader = ({ title, subtitle, children }: PageHeaderProps) => {
         justifyContent: 'space-between',
         gap: 2,
         mb: 3,
+        cursor: 'default',
       }}
     >
       <Box>
