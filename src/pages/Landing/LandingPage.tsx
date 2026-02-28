@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -13,6 +13,7 @@ import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
 import BoltRoundedIcon from '@mui/icons-material/BoltRounded';
 import { signInWithEmail, signInWithGoogle } from '../../firebase/firebase';
+import { useAuth } from '../../hooks/useAuth';
 
 const FEATURES = [
   {
@@ -34,6 +35,7 @@ const FEATURES = [
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const { user, loading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -52,6 +54,10 @@ const LandingPage = () => {
       setLoading(false);
     }
   };
+
+  if (!loading && user) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const handleGoogleLogin = async () => {
     setError('');
