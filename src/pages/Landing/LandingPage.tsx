@@ -12,7 +12,7 @@ import {
 import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
 import BoltRoundedIcon from '@mui/icons-material/BoltRounded';
-import { signInWithEmail, signInWithGoogle } from '../../firebase/firebase';
+import { signInWithEmail, signInWithGoogle, registerWithEmail } from '../../firebase/firebase';
 import { useAuth } from '../../hooks/useAuth';
 
 const FEATURES = [
@@ -36,28 +36,46 @@ const FEATURES = [
 const LandingPage = () => {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
+  if (!authLoading && user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  const handleToggle = () => {
+    setIsRegistering((prev) => !prev);
+    setError('');
+    setName('');
+    setEmail('');
+    setPassword('');
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
     try {
-      await signInWithEmail(email, password);
+      if (isRegistering) {
+        await registerWithEmail(email, password, name);
+      } else {
+        await signInWithEmail(email, password);
+      }
       navigate('/dashboard');
     } catch {
-      setError('Invalid email or password. Please try again.');
+      setError(
+        isRegistering
+          ? 'Registration failed. This email may already be in use.'
+          : 'Invalid email or password. Please try again.',
+      );
     } finally {
       setLoading(false);
     }
   };
-
-  if (!authLoading && user) {
-    return <Navigate to="/dashboard" replace />;
-  }
 
   const handleGoogleLogin = async () => {
     setError('');
@@ -73,7 +91,7 @@ const LandingPage = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       {/* ── Left branding panel ─────────────────────────────── */}
       <Box
         sx={{
@@ -198,6 +216,7 @@ const LandingPage = () => {
           px: { xs: 2, sm: 4 },
           py: { xs: 3, sm: 6 },
           bgcolor: 'background.default',
+          overflowY: 'auto',
         }}
       >
         <Paper
@@ -222,10 +241,12 @@ const LandingPage = () => {
           </Typography>
 
           <Typography variant="h5" fontWeight={700} mb={0.5}>
-            Welcome back
+            {isRegistering ? 'Create an account' : 'Welcome back'}
           </Typography>
           <Typography variant="body2" color="text.secondary" mb={3}>
-            Sign in to access your dashboard
+            {isRegistering
+              ? 'Sign up to access your dashboard'
+              : 'Sign in to access your dashboard'}
           </Typography>
 
           {error && (
@@ -246,15 +267,26 @@ const LandingPage = () => {
 
           <Divider sx={{ mb: 3 }}>
             <Typography variant="caption" color="text.secondary">
-              or sign in with email
+              {isRegistering ? 'or register with email' : 'or sign in with email'}
             </Typography>
           </Divider>
 
           <Box
             component="form"
-            onSubmit={handleEmailLogin}
+            onSubmit={handleEmailSubmit}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
+            {isRegistering && (
+              <TextField
+                label="Full name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                fullWidth
+                autoComplete="name"
+              />
+            )}
             <TextField
               label="Email"
               type="email"
@@ -271,7 +303,7 @@ const LandingPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               fullWidth
-              autoComplete="current-password"
+              autoComplete={isRegistering ? 'new-password' : 'current-password'}
             />
             <Button
               type="submit"
@@ -280,9 +312,23 @@ const LandingPage = () => {
               disabled={loading}
               sx={{ py: 1.5, mt: 0.5 }}
             >
-              Sign In
+              {isRegistering ? 'Create Account' : 'Sign In'}
             </Button>
           </Box>
+
+          <Typography variant="body2" color="text.secondary" textAlign="center" mt={2.5}>
+            {isRegistering ? 'Already have an account?' : "Don't have an account?"}{' '}
+            <Typography
+              component="span"
+              variant="body2"
+              color="primary"
+              fontWeight={600}
+              onClick={handleToggle}
+              sx={{ cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+            >
+              {isRegistering ? 'Sign in' : 'Create one'}
+            </Typography>
+          </Typography>
         </Paper>
       </Box>
     </Box>
